@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: librime-ios-build
+          submodules: recursive
+
+      - name: Checkout librime
+        uses: actions/checkout@v4
+        with:
+          repository: TypeDuck-HK/librime
+          path: librime
+          submodules: recursive
+
+      - name: Build
+        run: |
+          brew install coreutils
+          cd librime
+          git submodule add https://github.com/Cantoboard/librime-cantoboard.git plugins/librime-cantoboard
+          cd ../librime-ios-build
+          ./build-ios.sh ../librime all
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            librime-ios-build/output/Rime.xcframework
