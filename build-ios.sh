@@ -193,7 +193,7 @@ build_xcframework() {
     cp -R src/ "$FW_IOSSIM_DIR"
     cp -R src/ "$FW_IOS_DIR"
 
-    lipo -create $OUTPUT_LIBRIME_DIR/macosx_x86_64/lib/rime.framework/rime $OUTPUT_LIBRIME_DIR/macosx_arm64/lib/rime.framework/rime -output $FW_MACOSX_LIB
+    lipo -create $OUTPUT_LIBRIME_DIR/macosx_x86_64/lib/rime.framework/Versions/Current/rime $OUTPUT_LIBRIME_DIR/macosx_arm64/lib/rime.framework/Versions/Current/rime -output $FW_MACOSX_LIB
     lipo -create $OUTPUT_LIBRIME_DIR/iphonesimulator_x86_64/lib/rime.framework/rime $OUTPUT_LIBRIME_DIR/iphonesimulator_arm64/lib/rime.framework/rime -output $FW_IOSSIM_LIB
     lipo -create $OUTPUT_LIBRIME_DIR/iphoneos_arm64/lib/rime.framework/rime -output $FW_IOS_LIB
 
