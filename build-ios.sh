@@ -4,7 +4,7 @@ set -e
 
 export SCRIPT_DIR=$(dirname $(realpath $0))
 
-export BOOST_VERSION=1.76.0
+export BOOST_VERSION=1.83.0
 export THREADS="-j$(sysctl -n hw.ncpu)"
 
 export BUILD_DIR="$PWD/build"

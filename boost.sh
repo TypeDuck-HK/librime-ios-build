@@ -33,7 +33,7 @@
 #
 #===============================================================================
 
-BOOST_VERSION=1.76.0
+BOOST_VERSION=1.83.0
 
 BOOST_LIBS=("atomic" "chrono" "date_time" "exception" "filesystem"
 "program_options" "random" "system" "thread" "test")
