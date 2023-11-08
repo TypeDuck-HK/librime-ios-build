@@ -218,6 +218,15 @@ mkdir -p "$OUTPUT_DIR"
 
 if [ "$2" == "all" ]; then
     build_thirdparty "macosx" "x86_64"
+
+    if [ ! -d "$RIME_ROOT/deps/opencc/data/ocd" ]; then
+        pushd $RIME_ROOT/deps/opencc
+        mkdir -p data/ocd
+        cp $BUILD_THIRDPARTY_DIR/macosx_x86_64/opencc/data/*.ocd* data/ocd
+        git apply $SCRIPT_DIR/opencc.patch
+        popd
+    fi
+
     build_thirdparty "macosx" "arm64"
 
     build_thirdparty "iphonesimulator" "x86_64"

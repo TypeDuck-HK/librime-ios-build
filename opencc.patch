@@ -1,0 +1,20 @@
+diff --git a/data/CMakeLists.txt b/data/CMakeLists.txt
+index e9b921f..ffc230a 100644
+--- a/data/CMakeLists.txt
++++ b/data/CMakeLists.txt
+@@ -136,14 +136,9 @@ foreach(DICT ${DICTS})
+     COMMENT
+       "Building ${DICT}.ocd2"
+     COMMAND
+-      ${OPENCC_DICT_BIN}
+-        --input ${DICT_${DICT}_INPUT}
+-        --output ${DICT}.ocd2
+-        --from text
+-        --to ocd2
++      cp ${CMAKE_CURRENT_SOURCE_DIR}/ocd/${DICT}.ocd2 ${DICT}.ocd2
+     DEPENDS
+       ${DICT_WIN32_DEPENDS}
+-      ${OPENCC_DICT_BIN}
+       ${DICT_${DICT}_INPUT}
+   )
+ 
