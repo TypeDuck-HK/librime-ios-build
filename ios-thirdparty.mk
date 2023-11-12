@@ -1,10 +1,10 @@
-THIRD_PARTY_DIR = $(RIME_ROOT)/thirdparty
-SRC_DIR = $(THIRD_PARTY_DIR)/src
+THIRD_PARTY_DIR = $(RIME_ROOT)/deps
+SRC_DIR = $(THIRD_PARTY_DIR)
 
 BUILD_DIR ?= $(THIRD_PARTY_DIR)/build
 INSTALL_DIR ?= $(THIRD_PARTY_DIR)/output
 
-THIRD_PARTY_LIBS = capnproto glog gtest leveldb marisa opencc yaml-cpp
+THIRD_PARTY_LIBS = glog gtest leveldb marisa opencc yaml-cpp
 
 XC_FLAGS = CFLAGS="-fembed-bitcode" CXXFLAGS="-stdlib=libc++ -fembed-bitcode" LDFLAGS="-stdlib=libc++ -fembed-bitcode"
 
@@ -14,19 +14,8 @@ all: $(THIRD_PARTY_LIBS)
 
 # note: this won't clean output files under include/, lib/ and bin/.
 clean:
-	rm -r $(RIME_ROOT)/thirdparty/build || true
-	rm -r $(RIME_ROOT)/thirdparty/output || true
-
-capnproto:
-	echo $(BUILD_DIR)
-	cd $(SRC_DIR)/capnproto; \
-	$(XC_FLAGS) cmake . -B$(BUILD_DIR)/capnproto \
-	-DCMAKE_OSX_SYSROOT=$(SDKROOT) \
-	-DBUILD_SHARED_LIBS:BOOL=OFF \
-	-DBUILD_TESTING:BOOL=OFF \
-	-DCMAKE_BUILD_TYPE:STRING="Release" \
-	-DCMAKE_INSTALL_PREFIX:PATH="$(INSTALL_DIR)" \
-	&& cmake --build $(BUILD_DIR)/capnproto --target install
+	rm -r $(THIRD_PARTY_DIR)/build || true
+	rm -r $(THIRD_PARTY_DIR)/output || true
 
 glog:
 	cd $(SRC_DIR)/glog; \
@@ -66,8 +55,9 @@ marisa:
 	&& cmake --build $(BUILD_DIR)/marisa-trie --target install
 
 opencc:
-	echo UFO $(OPENCC_DICT_BIN)
 	cd $(SRC_DIR)/opencc; \
+	# We are cross compiling, don't build dictionaries \
+	sed -Ei .bak 's/^add_subdirectory\(data\)/# add_subdirectory\(data\)/g' CMakeLists.txt \
 	$(XC_FLAGS) cmake . -B$(BUILD_DIR)/opencc \
 	-DCMAKE_OSX_SYSROOT=$(SDKROOT) \
 	-DBUILD_SHARED_LIBS:BOOL=OFF \
