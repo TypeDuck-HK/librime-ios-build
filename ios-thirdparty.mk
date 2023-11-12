@@ -55,8 +55,9 @@ marisa:
 	&& cmake --build $(BUILD_DIR)/marisa-trie --target install
 
 opencc:
-	echo UFO $(OPENCC_DICT_BIN)
 	cd $(SRC_DIR)/opencc; \
+	# We are cross compiling, don't build dictionaries \
+	sed -Ei .bak '/add_subdirectory\(data\)/d' CMakeLists.txt \
 	$(XC_FLAGS) cmake . -B$(BUILD_DIR)/opencc \
 	-DCMAKE_OSX_SYSROOT=$(SDKROOT) \
 	-DBUILD_SHARED_LIBS:BOOL=OFF \
