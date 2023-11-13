@@ -20,6 +20,7 @@ clean:
 glog:
 	cd $(SRC_DIR)/glog; \
 	$(XC_FLAGS) cmake . -B$(BUILD_DIR)/glog \
+	-DBUILD_SHARED_LIBS:BOOL=OFF \
 	-DCMAKE_OSX_SYSROOT=$(SDKROOT) \
 	-DBUILD_TESTING:BOOL=OFF \
 	-DWITH_GFLAGS:BOOL=OFF \
