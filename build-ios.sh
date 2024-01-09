@@ -162,13 +162,13 @@ build_librime() {
         -DENABLE_VISIBILITY=1 \
         -DCMAKE_XCODE_ATTRIBUTE_APPLICATION_EXTENSION_API_ONLY=YES \
         -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED=NO \
-        -DCMAKE_XCODE_ATTRIBUTE_LD_DYLIB_INSTALL_NAME="@rpath/Rime.framework/Rime" \
-        -T buildsystem=1
+        -DCMAKE_XCODE_ATTRIBUTE_LD_DYLIB_INSTALL_NAME="@rpath/Rime.framework/Rime"
     else
         echo "Skip configure for $PLAT_ARCH."
     fi
-    
-    cmake --build $PLAT_ARCH_BUILD_DIR --config Release --target install $THREADS
+
+    cmake --build $PLAT_ARCH_BUILD_DIR --config Release $THREADS
+    cmake --install $PLAT_ARCH_BUILD_DIR
 }
 
 build_xcframework() {
