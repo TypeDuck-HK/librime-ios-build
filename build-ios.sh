@@ -4,7 +4,7 @@ set -e
 
 export SCRIPT_DIR=$(dirname $(realpath $0))
 
-export BOOST_VERSION=1.83.0
+export BOOST_VERSION=1.84.0
 export THREADS="-j$(sysctl -n hw.ncpu)"
 
 export BUILD_DIR="$PWD/build"
@@ -44,7 +44,7 @@ build_boost() {
     fi
 
     echo "Building Boost..."
-    export BOOST_LIBS="filesystem regex system"
+    export BOOST_LIBS="regex"
 
     rm -rf $BUILD_BOOST_DIR || true
     mkdir -p $BUILD_BOOST_DIR
@@ -211,6 +211,9 @@ build_xcframework() {
         cp -a "$OUTPUT_XCFW_PATH" "$1"
     fi
 }
+
+mkdir -p src/Headers
+cp $RIME_ROOT/src/rime_api.h src/Headers
 
 mkdir -p "$OUTPUT_DIR"
 

@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
           submodules: recursive
 
       - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_15.1.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
 
       - name: Build
         run: |
@@ -32,7 +32,7 @@ jobs:
           ./build-ios.sh ../librime all
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: |
             librime-ios-build/output/Rime.xcframework

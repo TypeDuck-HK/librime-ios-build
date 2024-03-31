@@ -49,7 +49,7 @@ leveldb:
 
 marisa:
 	cd $(SRC_DIR)/marisa-trie; \
-	$(XC_FLAGS) cmake $(SRC_DIR) -B$(BUILD_DIR)/marisa-trie \
+	$(XC_FLAGS) cmake . -B$(BUILD_DIR)/marisa-trie \
 	-DCMAKE_OSX_SYSROOT=$(SDKROOT) \
 	-DCMAKE_BUILD_TYPE:STRING="Release" \
 	-DCMAKE_INSTALL_PREFIX:PATH="$(INSTALL_DIR)" \
